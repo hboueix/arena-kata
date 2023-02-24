@@ -18,6 +18,6 @@ class TestArenaDamageCalculator:
             Hero(HeroElement.EARTH, 100, 100, 100, 100, 100)
         ]
 
-        updated_defenders = self.calculator.computeDamage(attackers[0], defenders)
+        updated_defenders = self.calculator.compute_damage(attackers[0], defenders)
 
         assert all([defenders[i] is updated_defenders[i] for i in range(len(defenders))])

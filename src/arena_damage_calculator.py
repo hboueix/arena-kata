@@ -23,7 +23,7 @@ class Hero:
 
 class ArenaDamageCalculator:
 
-    def computeDamage(self, attacker:Hero, defenders: list[Hero]):
+    def compute_damage(self, attacker:Hero, defenders: list[Hero]):
         power = attacker.pow
 
         adv = list()
