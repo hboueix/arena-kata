@@ -25,7 +25,10 @@ class ArenaDamageCalculator:
 
     def get_best_target(self, attacker: Hero, defenders: list[Hero]) -> Hero:
         for defender in defenders:
-            if defender.lp > 0:
+            if defender.lp > 0 and attacker.element == HeroElement.FIRE:
+                if defender.element == HeroElement.EARTH:
+                    return defender
+            elif defender.lp > 0:
                 return defender
 
     def compute_damage(self, attacker:Hero, defenders: list[Hero]):
