@@ -38,3 +38,8 @@ class TestArenaDamageCalculator:
         target = self.calculator.get_best_target(self.attackers[1], self.defenders)
 
         assert target is self.defenders[0]
+
+    def test_get_best_target_if_earth_attacker(self):
+        target = self.calculator.get_best_target(self.attackers[2], self.defenders)
+
+        assert target is self.defenders[1]
