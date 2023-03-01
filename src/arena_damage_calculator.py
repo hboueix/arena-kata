@@ -23,6 +23,9 @@ class Hero:
 
 class ArenaDamageCalculator:
 
+    def get_best_target(self, attacker: Hero, defenders: list[Hero]) -> Hero:
+        return defenders[0]
+
     def compute_damage(self, attacker:Hero, defenders: list[Hero]):
         power = attacker.pow
 
