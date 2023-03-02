@@ -187,4 +187,4 @@ class TestArenaDamageCalculator:
 
         damage = self.calculator.get_damage(self.attackers[0], self.defenders[0])
 
-        assert damage == 185
+        assert damage == 186

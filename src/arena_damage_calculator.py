@@ -47,13 +47,17 @@ class ArenaDamageCalculator:
         return valid_targets
     
     def get_damage(self, attacker: Hero, attacked: Hero) -> int:
-        if random.random() * 100 < attacker.crtr:
+        add_crit_damage = random.random() * 100 < attacker.crtr
+        if add_crit_damage:
             damage = (attacker.pow + (0.5 + attacker.leth / 5000) * attacker.pow) * (1 - attacked.defense / 7500)
         else:
             damage = attacker.pow * (1 - attacked.defense / 7500)
 
         if Buff.ATTACK in attacker.buffs:
-            damage += attacker.pow * 0.25 * (1 - attacked.defense / 7500)
+            if add_crit_damage:
+                damage += (attacker.pow * 0.25 + (0.5 + attacker.leth / 5000) * attacker.pow * 0.25) * (1 - attacked.defense / 7500)
+            else:
+                damage += attacker.pow * 0.25 * (1 - attacked.defense / 7500)
 
         if attacker.element == HeroElement.FIRE:
             if attacked.element == HeroElement.WATER:
