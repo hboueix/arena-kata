@@ -28,6 +28,9 @@ class ArenaDamageCalculator:
 
     def get_best_targets(self, attacker: Hero, defenders: list[Hero]) -> List[Hero]:
         valid_targets = [defender for defender in defenders if defender.lp > 0]
+        for defender in valid_targets:
+            if Buff.TURNCOAT in defender.buffs:
+                defender.element = self.get_turncoat_element(defender.element)
 
         if Buff.TURNCOAT in attacker.buffs:
             attacker.element = self.get_turncoat_element(attacker.element)
