@@ -50,3 +50,10 @@ class TestArenaDamageCalculator:
         targets = self.calculator.get_best_targets(self.attackers[0], self.defenders)
 
         assert targets[0] is self.defenders[0]
+
+    def test_best_targets_if_water_attacker_should_return_water_defender(self):
+        self.defenders[0].lp = 0
+
+        targets = self.calculator.get_best_targets(self.attackers[1], self.defenders)
+
+        assert targets[0] is self.defenders[1]
