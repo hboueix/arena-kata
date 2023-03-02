@@ -1,5 +1,7 @@
 # Starter seed : Python - Pytest - Pytest-coverage
 
+From: https://github.com/fhemery/arena-kata  
+
 Uses :
 * __Pip__ as build system
 * __Pytest__ as unit testing engine
