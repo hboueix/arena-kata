@@ -51,6 +51,8 @@ class ArenaDamageCalculator:
         if attacker.element == HeroElement.FIRE:
             if attacked.element == HeroElement.WATER:
                 damage *= 0.8
+            elif attacked.element == HeroElement.EARTH:
+                damage *= 1.2
         return math.floor(damage)
 
     def compute_damage(self, attacker:Hero, defenders: list[Hero]):
