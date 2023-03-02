@@ -45,6 +45,9 @@ class ArenaDamageCalculator:
             valid_targets = equal_opponents
 
         return valid_targets
+    
+    def get_damage(self, attacker: Hero, attacked: Hero) -> int:
+        return 0
 
     def compute_damage(self, attacker:Hero, defenders: list[Hero]):
         power = attacker.pow

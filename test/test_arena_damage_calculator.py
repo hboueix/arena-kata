@@ -90,3 +90,11 @@ class TestArenaDamageCalculator:
         targets = self.calculator.get_best_targets(self.attackers[2], self.defenders)
 
         assert targets == [self.defenders[0], self.defenders[1]]
+
+    def test_get_damage_if_fire_attacker_fire_defender_no_buff_no_crit(self) -> None:
+        self.attackers[0].crtr = 0
+        self.defenders[0].defense = 150
+
+        damage = self.calculator.get_damage(self.attackers[0], self.defenders[0])
+
+        assert damage == 98
