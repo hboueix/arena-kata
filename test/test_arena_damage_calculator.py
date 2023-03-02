@@ -32,6 +32,15 @@ class TestArenaDamageCalculator:
 
         assert updated_defenders[2].lp == 41
 
+    def test_compute_damage_return_not_negative_defender_lp(self) -> None:
+        self.attackers[0].pow = 1000
+        self.attackers[0].crtr = 100
+        self.defenders[2].defense = 0
+
+        updated_defenders = self.calculator.compute_damage(self.attackers[0], self.defenders)
+
+        assert updated_defenders[2].lp == 0
+
     def test_get_best_targets_if_one_alive(self) -> None:
         self.defenders[0].lp = 0
         self.defenders[1].lp = 0
