@@ -115,6 +115,8 @@ class ArenaDamageCalculator:
                 attacked.lp = 0
 
         if Buff.TURNCOAT in attacker.buffs:
-            attacker.element = self.get_turncoat_element(attacker.element)
+            attacker.element = self.get_turncoat_element(
+                self.get_turncoat_element(attacker.element)
+            )
 
         return defenders
