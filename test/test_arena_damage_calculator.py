@@ -23,6 +23,15 @@ class TestArenaDamageCalculator:
 
         assert all([self.defenders[i] is updated_defenders[i] for i in range(len(self.defenders))])
 
+    def test_compute_damage_return_updated_attacked_lp(self) -> None:
+        self.attackers[0].pow = 50
+        self.attackers[0].crtr = 0
+        self.defenders[2].defense = 75
+
+        updated_defenders = self.calculator.compute_damage(self.attackers[0], self.defenders)
+
+        assert updated_defenders[2].lp == 41
+
     def test_get_best_targets_if_one_alive(self) -> None:
         self.defenders[0].lp = 0
         self.defenders[1].lp = 0
