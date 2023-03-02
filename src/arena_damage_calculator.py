@@ -53,38 +53,7 @@ class ArenaDamageCalculator:
         eq = list()
         dis = list()
 
-        if attacker.element == HeroElement.WATER:
-            for h in defenders:
-                if h.lp == 0:
-                    continue
-                if h.element == HeroElement.FIRE:
-                    adv.append(h)
-                elif h.element == HeroElement.WATER:
-                    eq.append(h)
-                else:
-                    dis.append(h)
-        elif attacker.element == HeroElement.FIRE:
-            for h in defenders:
-                if h.lp == 0:
-                    continue
-                if h.element == HeroElement.FIRE:
-                    eq.append(h)
-                elif h.element == HeroElement.WATER:
-                    dis.append(h)
-                else:
-                    adv.append(h)
-        else:   # Hero is of type water
-            for h in defenders:
-                if h.lp == 0:
-                    continue
-                if h.element == HeroElement.FIRE:
-                    dis.append(h)
-                elif h.element == HeroElement.WATER:
-                    adv.append(h)
-                else:
-                    eq.append(h)
-
-        attacked = adv[math.floor(random.random() * len(adv))] if len(adv) > 0 else eq[math.floor(random.random() * len(eq))] if len(eq) > 0 else dis[math.floor(random.random() * len(dis))]
+        attacked = random.choice(self.get_best_targets(attacker, defenders))
 
         c = random.random() * 100 < attacker.crtr
         dmg = 0
