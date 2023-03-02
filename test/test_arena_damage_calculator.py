@@ -137,6 +137,13 @@ class TestArenaDamageCalculator:
 
         assert targets == [self.defenders[1]]
 
+    def test_get_best_targets_if_defender_turncoat_buff(self) -> None:
+        self.defenders[2].buffs = [Buff.TURNCOAT]
+
+        targets = self.calculator.get_best_targets(self.attackers[0], self.defenders)
+
+        assert targets == [self.defenders[0], self.defenders[2]]
+
     def test_get_best_targets_if_earth_attacker_turncoat_buff(self) -> None:
         self.attackers[2].buffs = [Buff.TURNCOAT]
 
