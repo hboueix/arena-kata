@@ -106,6 +106,9 @@ class ArenaDamageCalculator:
             return HeroElement.FIRE
         else:
             raise ValueError("Invalid element")
+        
+    def get_real_element_after_turncoat(self, element: HeroElement) -> HeroElement:
+        return self.get_turncoat_element(self.get_turncoat_element(element))
 
     def compute_damage(self, attacker:Hero, defenders: List[Hero]):
         attacked = random.choice(self.get_best_targets(attacker, defenders))
@@ -118,14 +121,10 @@ class ArenaDamageCalculator:
                 attacked.lp = 0
 
         if Buff.TURNCOAT in attacker.buffs:
-            attacker.element = self.get_turncoat_element(
-                self.get_turncoat_element(attacker.element)
-            )
+            attacker.element = self.get_real_element_after_turncoat(attacker.element)
 
         for defender in defenders:
             if Buff.TURNCOAT in defender.buffs:
-                defender.element = self.get_turncoat_element(
-                    self.get_turncoat_element(defender.element)
-                )
+                defender.element = self.get_real_element_after_turncoat(defender.element)
 
         return defenders
