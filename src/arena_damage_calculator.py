@@ -33,6 +33,7 @@ class ArenaDamageCalculator:
 
         elif attacker.element == HeroElement.WATER:
             best_opponents = [defender for defender in valid_targets if defender.element == HeroElement.FIRE]
+            equal_opponents = [defender for defender in valid_targets if defender.element == HeroElement.WATER]
             
         elif attacker.element == HeroElement.EARTH:
             best_opponents = [defender for defender in valid_targets if defender.element == HeroElement.WATER]
