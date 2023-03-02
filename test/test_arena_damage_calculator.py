@@ -1,6 +1,6 @@
 from typing import Callable
 
-from src.arena_damage_calculator import ArenaDamageCalculator, Hero, HeroElement
+from src.arena_damage_calculator import ArenaDamageCalculator, Buff, Hero, HeroElement
 
 
 class TestArenaDamageCalculator:
@@ -170,3 +170,12 @@ class TestArenaDamageCalculator:
         damage = self.calculator.get_damage(self.attackers[0], self.defenders[0])
 
         assert damage == 148
+
+    def test_get_damage_if_attack_buff_no_crit(self):
+        self.attackers[0].buffs = [Buff.ATTACK]
+        self.attackers[0].crtr = 0
+        self.defenders[0].defense = 150
+
+        damage = self.calculator.get_damage(self.attackers[0], self.defenders[0])
+
+        assert damage == 122
