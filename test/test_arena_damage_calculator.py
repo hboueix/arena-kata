@@ -41,6 +41,13 @@ class TestArenaDamageCalculator:
 
         assert updated_defenders[2].lp == 0
 
+    def test_compute_damage_if_turncoat_buff_attacker_retrieve_real_element(self) -> None:
+        self.attackers[0].buffs = [Buff.TURNCOAT]
+
+        updated_defenders = self.calculator.compute_damage(self.attackers[0], self.defenders)
+
+        assert self.attackers[0].element == HeroElement.FIRE
+
     def test_get_best_targets_if_one_alive(self) -> None:
         self.defenders[0].lp = 0
         self.defenders[1].lp = 0
