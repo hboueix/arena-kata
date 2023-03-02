@@ -231,3 +231,12 @@ class TestArenaDamageCalculator:
         damage = self.calculator.get_damage(self.attackers[0], self.defenders[0])
 
         assert damage == 80
+
+    def test_get_turncoat_element_if_fire(self) -> None:
+        assert self.calculator.get_turncoat_element(HeroElement.FIRE) == HeroElement.WATER
+
+    def test_get_turncoat_element_if_water(self) -> None:
+        assert self.calculator.get_turncoat_element(HeroElement.WATER) == HeroElement.EARTH
+
+    def test_get_turncoat_element_if_earth(self) -> None:
+        assert self.calculator.get_turncoat_element(HeroElement.EARTH) == HeroElement.FIRE

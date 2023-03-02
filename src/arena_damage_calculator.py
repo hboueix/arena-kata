@@ -12,6 +12,7 @@ class Buff(Enum):
     ATTACK = 1
     DEFENSE = 2
     HOLY = 3
+    TURNCOAT = 4
 
 class Hero:
     def __init__(self, element: HeroElement, power: int, defense: int, leth: int, crtr: int, lp: int) -> None:
@@ -27,6 +28,9 @@ class ArenaDamageCalculator:
 
     def get_best_targets(self, attacker: Hero, defenders: list[Hero]) -> List[Hero]:
         valid_targets = [defender for defender in defenders if defender.lp > 0]
+
+        if Buff.TURNCOAT in attacker.buffs:
+            attacker.element = self.get_turncoat_element(attacker.element)
 
         if Buff.HOLY in attacker.buffs:
             return valid_targets
@@ -89,8 +93,18 @@ class ArenaDamageCalculator:
                 damage *= 1.2
 
         return math.floor(damage)
+    
+    def get_turncoat_element(self, element: HeroElement) -> HeroElement:
+        if element == HeroElement.FIRE:
+            return HeroElement.WATER
+        elif element == HeroElement.WATER:
+            return HeroElement.EARTH
+        elif element == HeroElement.EARTH:
+            return HeroElement.FIRE
+        else:
+            raise ValueError("Invalid element")
 
-    def compute_damage(self, attacker:Hero, defenders: list[Hero]):
+    def compute_damage(self, attacker:Hero, defenders: List[Hero]):
         attacked = random.choice(self.get_best_targets(attacker, defenders))
 
         damage = self.get_damage(attacker, attacked)
@@ -99,5 +113,8 @@ class ArenaDamageCalculator:
             attacked.lp -= damage
             if attacked.lp < 0:
                 attacked.lp = 0
+
+        if Buff.TURNCOAT in attacker.buffs:
+            attacker.element = self.get_turncoat_element(attacker.element)
 
         return defenders
