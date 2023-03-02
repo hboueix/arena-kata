@@ -21,25 +21,25 @@ class TestArenaDamageCalculator:
 
         assert all([self.defenders[i] is updated_defenders[i] for i in range(len(self.defenders))])
 
-    def test_get_best_target_if_one_alive(self):
+    def test_get_best_targets_if_one_alive(self):
         self.defenders[0].lp = 0
         self.defenders[1].lp = 0
 
-        target = self.calculator.get_best_target(self.attackers[0], self.defenders)
+        targets = self.calculator.get_best_targets(self.attackers[0], self.defenders)
 
-        assert target is self.defenders[2]
+        assert targets[0] is self.defenders[2]
 
-    def test_get_best_target_if_fire_attacker(self):
-        target = self.calculator.get_best_target(self.attackers[0], self.defenders)
+    def test_get_best_targets_if_fire_attacker(self):
+        targets = self.calculator.get_best_targets(self.attackers[0], self.defenders)
 
-        assert target is self.defenders[2]
+        assert targets[0] is self.defenders[2]
 
-    def test_get_best_target_if_water_attacker(self):
-        target = self.calculator.get_best_target(self.attackers[1], self.defenders)
+    def test_get_best_targets_if_water_attacker(self):
+        targets = self.calculator.get_best_targets(self.attackers[1], self.defenders)
 
-        assert target is self.defenders[0]
+        assert targets[0] is self.defenders[0]
 
-    def test_get_best_target_if_earth_attacker(self):
-        target = self.calculator.get_best_target(self.attackers[2], self.defenders)
+    def test_get_best_targets_if_earth_attacker(self):
+        targets = self.calculator.get_best_targets(self.attackers[2], self.defenders)
 
-        assert target is self.defenders[1]
+        assert targets[0] is self.defenders[1]

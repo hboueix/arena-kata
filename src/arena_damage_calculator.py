@@ -1,6 +1,7 @@
 import math
 import random
 from enum import Enum
+from typing import List
 
 class HeroElement(Enum):
     FIRE = 1
@@ -23,20 +24,21 @@ class Hero:
 
 class ArenaDamageCalculator:
 
-    def get_best_target(self, attacker: Hero, defenders: list[Hero]) -> Hero:
-        for defender in defenders:
-            if defender.lp == 0:
-                continue
-            if attacker.element == HeroElement.FIRE:
-                if defender.element == HeroElement.EARTH:
-                    return defender
-            elif attacker.element == HeroElement.WATER:
-                if defender.element == HeroElement.FIRE:
-                    return defender
-            elif attacker.element == HeroElement.EARTH:
-                if defender.element == HeroElement.WATER:
-                    return defender
-        return defender
+    def get_best_targets(self, attacker: Hero, defenders: list[Hero]) -> List[Hero]:
+        valid_targets = [defender for defender in defenders if defender.lp > 0]
+        
+        if attacker.element == HeroElement.FIRE:
+            best_opponnents = [defender for defender in valid_targets if defender.element == HeroElement.EARTH]
+
+        elif attacker.element == HeroElement.WATER:
+            best_opponnents = [defender for defender in valid_targets if defender.element == HeroElement.FIRE]
+            
+        elif attacker.element == HeroElement.EARTH:
+            best_opponnents = [defender for defender in valid_targets if defender.element == HeroElement.WATER]
+            
+        valid_targets = best_opponnents if len(best_opponnents) > 0 else valid_targets
+
+        return valid_targets
 
     def compute_damage(self, attacker:Hero, defenders: list[Hero]):
         power = attacker.pow
