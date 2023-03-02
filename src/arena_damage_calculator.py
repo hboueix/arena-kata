@@ -13,7 +13,7 @@ class Buff(Enum):
     DEFENSE = 2
 
 class Hero:
-    def __init__(self, element: HeroElement, power, defense, leth, crtr, lp):
+    def __init__(self, element: HeroElement, power: int, defense: int, leth: int, crtr: int, lp: int) -> None:
         self.element = element
         self.pow = power
         self.defense = defense
