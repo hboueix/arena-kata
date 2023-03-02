@@ -122,4 +122,10 @@ class ArenaDamageCalculator:
                 self.get_turncoat_element(attacker.element)
             )
 
+        for defender in defenders:
+            if Buff.TURNCOAT in defender.buffs:
+                defender.element = self.get_turncoat_element(
+                    self.get_turncoat_element(defender.element)
+                )
+
         return defenders
