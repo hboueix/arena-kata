@@ -222,3 +222,12 @@ class TestArenaDamageCalculator:
         damage = self.calculator.get_damage(self.attackers[0], self.defenders[0])
 
         assert damage == 73
+
+    def test_get_damage_if_holy_buff_attacker(self) -> None:
+        self.attackers[0].crtr = 0
+        self.attackers[0].buffs = [Buff.HOLY]
+        self.defenders[0].defense = 150
+
+        damage = self.calculator.get_damage(self.attackers[0], self.defenders[0])
+
+        assert damage == 80
