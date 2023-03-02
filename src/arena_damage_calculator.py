@@ -11,6 +11,7 @@ class HeroElement(Enum):
 class Buff(Enum):
     ATTACK = 1
     DEFENSE = 2
+    HOLY = 3
 
 class Hero:
     def __init__(self, element: HeroElement, power: int, defense: int, leth: int, crtr: int, lp: int) -> None:
@@ -26,6 +27,9 @@ class ArenaDamageCalculator:
 
     def get_best_targets(self, attacker: Hero, defenders: list[Hero]) -> List[Hero]:
         valid_targets = [defender for defender in defenders if defender.lp > 0]
+
+        if Buff.HOLY in attacker.buffs:
+            return valid_targets
         
         if attacker.element == HeroElement.FIRE:
             best_opponents = [defender for defender in valid_targets if defender.element == HeroElement.EARTH]
