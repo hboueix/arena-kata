@@ -47,7 +47,10 @@ class ArenaDamageCalculator:
         return valid_targets
     
     def get_damage(self, attacker: Hero, attacked: Hero) -> int:
-        return attacker.pow * (1 - attacked.defense / 7500)
+        damage = attacker.pow * (1 - attacked.defense / 7500)
+        if attacked.element == HeroElement.WATER:
+            damage *= 0.8
+        return math.floor(damage)
 
     def compute_damage(self, attacker:Hero, defenders: list[Hero]):
         power = attacker.pow
