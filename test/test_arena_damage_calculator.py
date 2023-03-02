@@ -154,3 +154,11 @@ class TestArenaDamageCalculator:
         damage = self.calculator.get_damage(self.attackers[2], self.defenders[1])
 
         assert damage == 117
+
+    def test_get_damage_if_earth_attacker_earth_defender_no_buff_no_crit(self) -> None:
+        self.attackers[2].crtr = 0
+        self.defenders[2].defense = 150
+
+        damage = self.calculator.get_damage(self.attackers[2], self.defenders[2])
+
+        assert damage == 98
