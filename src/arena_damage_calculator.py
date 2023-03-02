@@ -82,44 +82,12 @@ class ArenaDamageCalculator:
         return math.floor(damage)
 
     def compute_damage(self, attacker:Hero, defenders: list[Hero]):
-        power = attacker.pow
-
-        adv = list()
-        eq = list()
-        dis = list()
-
         attacked = random.choice(self.get_best_targets(attacker, defenders))
 
-        c = random.random() * 100 < attacker.crtr
-        dmg = 0
-        if c:
-            dmg = (attacker.pow + (0.5 + attacker.leth / 5000) * attacker.pow) * (1-attacked.defense /7500)
-        else:
-            dmg = attacker.pow * (1-attacked.defense / 7500)
+        damage = self.get_damage(attacker, attacked)
 
-        ## BUFFS
-        if Buff.ATTACK in attacker.buffs:
-            if c:
-                dmg += (attacker.pow * 0.25 + (0.5 + attacker.leth / 5000) * attacker.pow * 0.25) * (1-attacked.defense/7500)
-            else:
-                dmg += attacker.pow * 0.25* (1-attacked.defense/7500)
-
-        if Buff.DEFENSE in attacked.buffs:
-            dmg = dmg / (1-attacked.defense/7500) * (1-attacked.defense/7500 -0.25)
-
-        dmg = max(dmg, 0)
-        if dmg > 0:
-            if attacked in adv:
-                dmg = dmg + dmg * 20/100
-            elif attacked in eq:
-                pass
-            else:
-                dmg = dmg - dmg *20/100
-
-        dmg = math.floor(dmg)
-
-        if dmg > 0:
-            attacked.lp = attacked.lp - dmg
+        if damage > 0:
+            attacked.lp -= damage
             if attacked.lp < 0:
                 attacked.lp = 0
 
