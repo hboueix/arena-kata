@@ -57,6 +57,11 @@ class ArenaDamageCalculator:
         else:
             damage = attacker.pow * (1 - attacked.defense / 7500)
 
+        if Buff.HOLY in attacker.buffs:
+            damage /= (1 - attacked.defense / 7500)
+            damage *= 0.8
+            return damage
+
         if Buff.ATTACK in attacker.buffs:
             if add_crit_damage:
                 damage += (attacker.pow * 0.25 + (0.5 + attacker.leth / 5000) * attacker.pow * 0.25) * (1 - attacked.defense / 7500)
