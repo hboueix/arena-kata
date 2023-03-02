@@ -72,3 +72,11 @@ class TestArenaDamageCalculator:
         targets = self.calculator.get_best_targets(self.attackers[0], self.defenders)
 
         assert targets == [self.defenders[1], self.defenders[2]]
+
+    def test_get_best_targets_if_water_attacker_should_return_earth_defender(self):
+        self.defenders[1].lp = 0
+        self.defenders[0].element = HeroElement.EARTH
+
+        targets = self.calculator.get_best_targets(self.attackers[1], self.defenders)
+
+        assert targets == [self.defenders[0], self.defenders[2]]
