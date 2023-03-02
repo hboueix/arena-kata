@@ -52,6 +52,9 @@ class ArenaDamageCalculator:
         else:
             damage = attacker.pow * (1 - attacked.defense / 7500)
 
+        if Buff.ATTACK in attacker.buffs:
+            damage += attacker.pow * 0.25 * (1 - attacked.defense / 7500)
+
         if attacker.element == HeroElement.FIRE:
             if attacked.element == HeroElement.WATER:
                 damage *= 0.8
